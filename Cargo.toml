@@ -1,3 +1,3 @@
 [workspace]
-members = ["backend", "web_app"]
-default-members = ["backend"]
+members = ["api", "web_app"]
+#default-members = ["backend"]

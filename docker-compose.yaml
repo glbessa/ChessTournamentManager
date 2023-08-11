@@ -15,9 +15,7 @@ services:
       - "5432:5432"
     expose:
       - "5432"
-    #volumes:
-    #  - "/db_data:/var/lib/postgresql/data"
-
+  
   adminer:
     image: adminer
     restart: always
@@ -26,7 +24,7 @@ services:
     depends_on:
       - db
 
-  api:
+  website:
     environment:
       # postgres://<user>:<password>@<url>:<port>/<database>
       DATABASE_URL: "postgres://postgres:${POSTGRES_PASSWORD}@db:5432"
@@ -34,15 +32,15 @@ services:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - "3636:3636"
+      - "3000:3000"
     depends_on:
       - db
 
-  web_app:
+  nginx:
     build:
-      context: ./web_app
+      context: ./nginx
       dockerfile: Dockerfile
     ports:
       - "8000:80"
-    #depends_on:
-    #  - api
+    depends_on:
+      - website

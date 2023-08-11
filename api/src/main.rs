@@ -1,9 +1,11 @@
-#[macro_use]
-extern crate rocket;
+#[macro_use] extern crate rocket;
+
+use rocket::response::content;
+use rocket::http::ContentType;
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello world!"
+fn index() -> (ContentType, &'static str) {
+    (ContentType::HTML, "<h1>Hello world!</h1>")
 }
 
 #[launch]

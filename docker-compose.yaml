@@ -27,6 +27,7 @@ services:
       - db
 
   api:
+    #container_name: api_1
     environment:
       # postgres://<user>:<password>@<url>:<port>/<database>
       DATABASE_URL: "postgres://postgres:${POSTGRES_PASSWORD}@db:5432"
@@ -34,9 +35,18 @@ services:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - "3636:3636"
+      - "3000:3000"
     depends_on:
       - db
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    depends_on:
+      - api
 
   web_app:
     build:
@@ -44,5 +54,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:80"
-    #depends_on:
-    #  - api
+    depends_on:
+      - nginx
+  

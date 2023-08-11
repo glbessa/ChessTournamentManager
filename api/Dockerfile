@@ -15,9 +15,7 @@ COPY --from=builder /usr/src/api/target/x86_64-unknown-linux-gnu/release/api /us
 
 ENV ROCKET_ENV=prod
 ENV ROCKET_ADDRESS=0.0.0.0
-ENV ROCKET_PORT=3636
+ENV ROCKET_PORT=3000
 ENV ROCKET_LOG=critical
 
 ENTRYPOINT [ "/usr/local/bin/api" ]
-
-EXPOSE 3636
